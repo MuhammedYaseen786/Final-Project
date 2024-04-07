@@ -1,0 +1,25 @@
+# prompt: Spotify id track
+
+!pip install spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+
+# Set up the Spotify API client credentials
+client_id = '[your client ID]'
+client_secret = '[your client secret]'
+client_credentials_manager = SpotifyClientCredentials(client_id, client_secret)
+
+# Create a Spotify API object
+spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
+# Get the track ID from the user
+track_name = input("Enter the name of the track: ")
+
+# Search for the track on Spotify
+results = spotify.search(q=track_name, type="track")
+
+# Get the first track from the search results
+if len(results['tracks']['items']) > 0:
+    track_id = results['tracks']['items'][0]['id']
+    print(f"Track ID: {track_id}")
+else:
+    print(f"No track found with the name '{track_name}'")
